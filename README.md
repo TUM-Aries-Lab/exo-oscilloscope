@@ -2,9 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/TUM-Aries-Lab/template-python/badge.svg?branch=main)](https://coveralls.io/github/TUM-Aries-Lab/template-python?branch=main)
 ![Docker Image CI](https://github.com/TUM-Aries-Lab/template-python/actions/workflows/ci.yml/badge.svg)
 
-Simple README.md for a Python project template.
-
-Do ***NOT*** clone this repository. Please use it as a template instead. This readme is just here to serve as a template for you to get started faster.
+A data visualizer to help view the exosuit data streams.
 
 ## Install
 To install the library run:
@@ -12,9 +10,7 @@ To install the library run:
 ```bash
 pip install exo-oscilloscope
 ```
-
 OR
-
 ```bash
 pip install git+https://github.com/TUM-Aries-Lab/exo-oscilloscope.git@<specific-tag>
 ```
@@ -43,13 +39,12 @@ The package can then be found at: https://pypi.org/project/exo-oscilloscope
 ```python
 """Basic docstring for my module."""
 
-from loguru import logger
-
-from exo_oscilloscope.config import definitions
+from exo_oscilloscope.plotter import ExoPlotter
 
 def main() -> None:
     """Run a simple demonstration."""
-    logger.info("Hello World!")
+    gui = ExoPlotter()
+    gui.run()
 
 if __name__ == "__main__":
     main()

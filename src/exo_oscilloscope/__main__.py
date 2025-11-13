@@ -23,24 +23,26 @@ def main(
     """
     setup_logger(log_level=log_level, stderr_level=stderr_level)
     logger.info("Starting the exo_oscilloscope pipeline")
+    start_time = time.time()
 
     gui = ExoPlotter()
 
     def update():
         # fake data
-        t = time.time()
+        t = time.time() - start_time
         imu = IMUData(
-            accel=Vector3(np.sin(t), np.sin(t * 2), np.sin(t * 4)),
+            accel=Vector3(t * np.sin(t), np.sin(t * 2), np.sin(t * 4)),
             gyro=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
             mag=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
             quat=Quaternion(0.0, 0.0, 0.0, np.sin(t * 8)),
+            timestamp=t,
         )
         gui.plot_left(imu)
         gui.plot_right(imu)
 
     timer = gui.QtCore.QTimer()
     timer.timeout.connect(update)
-    timer.start(20)
+    timer.start(5)
 
     gui.run()
 
