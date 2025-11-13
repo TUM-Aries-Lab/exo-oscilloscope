@@ -24,7 +24,7 @@ pip install git+https://github.com/TUM-Aries-Lab/exo-oscilloscope.git@<specific-
 1. Install [pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
 2. ```pyenv install <desired-python-version>  # install the required python version```
 3. ```pyenv global <desired-python-version>  # set the required python version```
-4. ```git clone git@github.com:TUM-Aries-Lab/template-python.git```
+4. ```git clone git@github.com:TUM-Aries-Lab/exo-oscilloscope.git```
 5. `make init` to create the virtual environment and install dependencies
 6. `make format` to format the code and check for errors
 7. `make test` to run the test suite
@@ -45,7 +45,7 @@ The package can then be found at: https://pypi.org/project/exo-oscilloscope
 
 from loguru import logger
 
-from exo_oscilloscope import definitions
+from exo_oscilloscope.config import definitions
 
 def main() -> None:
     """Run a simple demonstration."""
