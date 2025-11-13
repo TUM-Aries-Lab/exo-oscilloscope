@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "exo-oscilloscope"
-version = "0.0.1alpha"
+version = "0.0.1"
 description = "A Python exo-oscilloscope"
 authors = ["Tsmorz <tony.smoragiewicz@tum.de>"]
 readme = "README.md"
