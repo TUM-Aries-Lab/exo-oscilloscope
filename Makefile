@@ -30,9 +30,5 @@ update:
 	poetry cache clear pypi --all
 	poetry update
 
-docker:
-	docker build --no-cache -f Dockerfile -t exo_oscilloscope-smoke .
-	docker run --rm exo_oscilloscope-smoke
-
 app:
 	poetry run python -m exo_oscilloscope
