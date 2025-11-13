@@ -75,31 +75,25 @@ class IMUPanel:
 
     def update(self, imu) -> None:
         """Update this panel with new IMUData."""
-        self._update(
-            data_buf=self.accel_buf,
-            values=imu.accel.to_tuple(),
-            timestamp=imu.timestamp,
-            time_buf=self.time_buf,
-        )
-        self._update(
-            data_buf=self.gyro_buf,
-            values=imu.gyro.to_tuple(),
-            timestamp=imu.timestamp,
-            time_buf=self.time_buf,
-        )
-        self._update(
-            data_buf=self.mag_buf,
-            values=imu.mag.to_tuple(),
-            timestamp=imu.timestamp,
-            time_buf=self.time_buf,
-        )
-        self._update(
-            data_buf=self.quat_buf,
-            values=imu.quat.to_tuple(),
-            timestamp=imu.timestamp,
-            time_buf=self.time_buf,
-        )
+        t = imu.timestamp
 
+        # --- shift time once ---
+        self.time_buf[:-1] = self.time_buf[1:]
+        self.time_buf[-1] = t
+
+        # --- shift data once per group, but DO NOT shift time again --
+        self.accel_buf[:, :-1] = self.accel_buf[:, 1:]
+        self.gyro_buf[:, :-1] = self.gyro_buf[:, 1:]
+        self.mag_buf[:, :-1] = self.mag_buf[:, 1:]
+        self.quat_buf[:, :-1] = self.quat_buf[:, 1:]
+
+        # --- insert new values ---
+        self.accel_buf[:, -1] = imu.accel.to_tuple()
+        self.gyro_buf[:, -1] = imu.gyro.to_tuple()
+        self.mag_buf[:, -1] = imu.mag.to_tuple()
+        self.quat_buf[:, -1] = imu.quat.to_tuple()
+
+        # --- update curves ---
         for i in range(3):
             self.accel_curves[i].setData(self.time_buf, self.accel_buf[i])
             self.gyro_curves[i].setData(self.time_buf, self.gyro_buf[i])

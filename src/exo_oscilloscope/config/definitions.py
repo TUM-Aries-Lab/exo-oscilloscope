@@ -54,4 +54,4 @@ PENS = [
     pg.mkPen("#7f7f7f", width=2),  # gray
 ]
 APP_NAME = "Exo-Oscilloscope"
-BUFFER_SIZE = 500
+BUFFER_SIZE = 200
