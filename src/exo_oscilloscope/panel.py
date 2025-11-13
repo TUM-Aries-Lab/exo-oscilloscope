@@ -9,17 +9,21 @@ APP_NAME = "Exo-Oscilloscope"
 BUFFER_SIZE = 500
 
 
-# Utility function to create a plot widget with standardized settings
-def make_plot(title: str) -> pg.PlotWidget:
-    """Make a plot with given title.
+def make_plot(title: str, y_label: str) -> pg.PlotWidget:
+    """Make a plot with given title and Y-axis label.
 
     :param title: Plot title.
+    :param y_label: Label for Y axis.
     :return: Plot object.
     """
     plot = pg.PlotWidget(title=title)
     plot.showGrid(x=True, y=True, alpha=0.3)
     plot.addLegend()
     plot.setBackground("w")
+
+    plot.setLabel("left", y_label)
+    plot.setLabel("bottom", "Samples")
+
     return plot
 
 
@@ -40,10 +44,10 @@ class IMUPanel:
         self.layout = QtWidgets.QVBoxLayout()
 
         # Create the 4 plot widgets
-        self.accel_plot = make_plot(f"{title_prefix} Accelerometer")
-        self.gyro_plot = make_plot(f"{title_prefix} Gyroscope")
-        self.mag_plot = make_plot(f"{title_prefix} Magnetometer")
-        self.quat_plot = make_plot(f"{title_prefix} Quaternion")
+        self.accel_plot = make_plot(f"{title_prefix} Accelerometer", "m/s²")
+        self.gyro_plot = make_plot(f"{title_prefix} Gyroscope", "deg/s")
+        self.mag_plot = make_plot(f"{title_prefix} Magnetometer", "µT")
+        self.quat_plot = make_plot(f"{title_prefix} Quaternion", "value")
 
         self.layout.addWidget(self.accel_plot)
         self.layout.addWidget(self.gyro_plot)
