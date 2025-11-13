@@ -1,7 +1,10 @@
 """Sample doc string."""
 
+import sys
+
 import numpy as np
 import pyqtgraph as pg
+from loguru import logger
 from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import Qt
 
@@ -11,7 +14,6 @@ class IMUPlotWidget(QtWidgets.QWidget):
 
     def __init__(self, title: str, buffer_size: int = 2000):
         super().__init__()
-
         self.buffer_size = buffer_size
 
         layout = QtWidgets.QVBoxLayout()
@@ -76,6 +78,9 @@ class IMUOscilloscope(QtWidgets.QWidget):
 
     def __init__(self):
         super().__init__()
+        logger.info("Starting the exo_oscilloscope pipeline")
+
+        self.app = QtWidgets.QApplication(sys.argv)
 
         self.setWindowTitle("IMU Oscilloscope")
         layout = QtWidgets.QHBoxLayout()
@@ -95,6 +100,9 @@ class IMUOscilloscope(QtWidgets.QWidget):
 
         self._dirty = False
 
+        self.resize(1400, 800)
+        self.show()
+
     def redraw(self):
         """Only redraw when data changed."""
         if self._dirty:
@@ -103,7 +111,6 @@ class IMUOscilloscope(QtWidgets.QWidget):
     # ------------------------
     #   PUBLIC UPDATE METHODS
     # ------------------------
-
     def update_left(self, accel, gyro, quat):
         """Update the left IMU."""
         self.left_imu.update(accel, gyro, quat)
@@ -113,3 +120,7 @@ class IMUOscilloscope(QtWidgets.QWidget):
         """Update the right IMU."""
         self.right_imu.update(accel, gyro, quat)
         self._dirty = True
+
+    def exit(self) -> None:
+        """Close the widget."""
+        sys.exit(self.app.exec())

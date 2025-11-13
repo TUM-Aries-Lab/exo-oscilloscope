@@ -1,11 +1,9 @@
 """Sample doc string."""
 
 import argparse
-import sys
 
 import numpy as np
-from loguru import logger
-from PySide6 import QtCore, QtWidgets
+from PySide6 import QtCore
 
 from exo_oscilloscope.config.definitions import DEFAULT_LOG_LEVEL, LogLevel
 from exo_oscilloscope.plotter import IMUOscilloscope
@@ -22,12 +20,8 @@ def main(
     :return: None
     """
     setup_logger(log_level=log_level, stderr_level=stderr_level)
-    logger.info("Starting the exo_oscilloscope pipeline")
 
-    app = QtWidgets.QApplication(sys.argv)
     osc = IMUOscilloscope()
-    osc.resize(1400, 800)
-    osc.show()
 
     # simulate IMU input
     t = 0.0
@@ -55,7 +49,7 @@ def main(
     sim_timer.timeout.connect(fake_data)
     sim_timer.start(20)
 
-    sys.exit(app.exec())
+    osc.exit()
 
 
 if __name__ == "__main__":  # pragma: no cover
