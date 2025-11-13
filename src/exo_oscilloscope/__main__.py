@@ -33,7 +33,7 @@ def main(
             accel=Vector3(np.sin(t), np.sin(t * 2), np.sin(t * 4)),
             gyro=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
             mag=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
-            quat=Quaternion(0.0, 0.0, 0.0, 1.0),
+            quat=Quaternion(0.0, 0.0, 0.0, np.sin(t * 8)),
         )
         gui.plot_imu(imu)
 
