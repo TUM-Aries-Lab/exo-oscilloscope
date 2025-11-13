@@ -41,11 +41,14 @@ class Quaternion:
     z: float
     w: float
 
-    def to_tuple(self) -> tuple[float, float, float, float]:
+    def to_tuple(self, scalar_first: bool = False) -> tuple[float, float, float, float]:
         """Return the quaternion as a tuple.
 
+        :param scalar_first: If True, the first component of the quaternion is scalar.
         :return: (x, y, z, w)
         """
+        if scalar_first:
+            return self.w, self.x, self.y, self.z
         return self.x, self.y, self.z, self.w
 
 
