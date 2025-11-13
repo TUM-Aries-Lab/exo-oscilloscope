@@ -4,6 +4,8 @@ import numpy as np
 import pyqtgraph as pg
 from PySide6 import QtWidgets
 
+from exo_oscilloscope.config.definitions import BUFFER_SIZE, PENS
+
 
 def make_plot(title: str, y_label: str) -> pg.PlotWidget:
     """Make a plot with given title and Y-axis label."""
@@ -21,16 +23,20 @@ def make_plot(title: str, y_label: str) -> pg.PlotWidget:
 class IMUPanel:
     """UI container + buffers + curves for a single IMU."""
 
-    def __init__(self, title_prefix: str, buffer_size: int, pens: list) -> None:
-        self.buffer_size = buffer_size
-        self.pens = pens
+    def __init__(self, title_prefix: str) -> None:
+        """Initialize the panel.
+
+        :param title_prefix: prefix for title
+        """
+        self.buffer_size = BUFFER_SIZE
+        self.pens = PENS
 
         # Buffers
-        self.accel_buf = np.zeros((3, buffer_size))
-        self.gyro_buf = np.zeros((3, buffer_size))
-        self.mag_buf = np.zeros((3, buffer_size))
-        self.quat_buf = np.zeros((4, buffer_size))
-        self.time_buf = np.zeros(buffer_size)
+        self.accel_buf = np.zeros((3, self.buffer_size))
+        self.gyro_buf = np.zeros((3, self.buffer_size))
+        self.mag_buf = np.zeros((3, self.buffer_size))
+        self.quat_buf = np.zeros((4, self.buffer_size))
+        self.time_buf = np.zeros(self.buffer_size)
 
         # Layout for this panel
         self.layout = QtWidgets.QVBoxLayout()
@@ -48,20 +54,24 @@ class IMUPanel:
 
         # Curves
         self.accel_curves = [
-            self.accel_plot.plot(pen=pens[i], name=f"accel_{i}") for i in range(3)
+            self.accel_plot.plot(pen=self.pens[i], name=f"accel_{i}") for i in range(3)
         ]
         self.gyro_curves = [
-            self.gyro_plot.plot(pen=pens[i], name=f"gyro_{i}") for i in range(3)
+            self.gyro_plot.plot(pen=self.pens[i], name=f"gyro_{i}") for i in range(3)
         ]
         self.mag_curves = [
-            self.mag_plot.plot(pen=pens[i], name=f"mag_{i}") for i in range(3)
+            self.mag_plot.plot(pen=self.pens[i], name=f"mag_{i}") for i in range(3)
         ]
         self.quat_curves = [
-            self.quat_plot.plot(pen=pens[i], name=f"quat_{i}") for i in range(4)
+            self.quat_plot.plot(pen=self.pens[i], name=f"quat_{i}") for i in range(4)
         ]
 
     def update(self, imu) -> None:
-        """Update this panel with new IMUData."""
+        """Update this panel with new IMUData.
+
+        :param imu: IMUData to update
+        :return: None
+        """
         t = imu.timestamp
 
         # --- shift time once ---
