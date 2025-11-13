@@ -1,10 +1,13 @@
 """Sample doc string."""
 
 import argparse
+import time
 
+import numpy as np
 from loguru import logger
 
 from exo_oscilloscope.config.definitions import DEFAULT_LOG_LEVEL, LogLevel
+from exo_oscilloscope.data_classes import IMUData, Quaternion, Vector3
 from exo_oscilloscope.plotter import ExoPlotter
 from exo_oscilloscope.utils import setup_logger
 
@@ -22,7 +25,25 @@ def main(
     logger.info("Starting the exo_oscilloscope pipeline")
 
     gui = ExoPlotter()
+
+    def update():
+        # fake data
+        t = time.time()
+        imu = IMUData(
+            accel=Vector3(np.sin(t), np.sin(t * 2), np.sin(t * 4)),
+            gyro=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
+            mag=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
+            quat=Quaternion(0.0, 0.0, 0.0, 1.0),
+        )
+        gui.plot_imu(imu)
+
+    timer = gui.QtCore.QTimer()
+    timer.timeout.connect(update)
+    timer.start(20)
+
     gui.run()
+
+    gui.close()
 
 
 if __name__ == "__main__":  # pragma: no cover
