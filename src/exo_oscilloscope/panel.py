@@ -2,7 +2,6 @@
 
 import numpy as np
 import pyqtgraph as pg
-from numpy.typing import NDArray
 from PySide6 import QtWidgets
 
 
@@ -60,18 +59,6 @@ class IMUPanel:
         self.quat_curves = [
             self.quat_plot.plot(pen=pens[i], name=f"quat_{i}") for i in range(4)
         ]
-
-    @staticmethod
-    def _update(
-        time_buf: NDArray, data_buf: NDArray, timestamp: float, values: tuple
-    ) -> None:
-        # Shift time left by one
-        time_buf[:-1] = time_buf[1:]
-        time_buf[-1] = timestamp
-
-        # Shift data left by one
-        data_buf[:, :-1] = data_buf[:, 1:]
-        data_buf[:, -1] = values
 
     def update(self, imu) -> None:
         """Update this panel with new IMUData."""
