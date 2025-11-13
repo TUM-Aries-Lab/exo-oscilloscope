@@ -34,12 +34,14 @@ def test_imu_data() -> None:
     gyro = Vector3(0, 0, 0)
     mag = Vector3(0, 0, 0)
     quat = Quaternion(0, 0, 0, 0)
+    t = 0.0
 
     # Act
-    imu = IMUData(accel, gyro, mag, quat)
+    imu = IMUData(accel=accel, gyro=gyro, mag=mag, quat=quat, timestamp=t)
 
     # Assert
     assert imu.accel == accel
     assert imu.gyro == gyro
     assert imu.mag == mag
     assert imu.quat == quat
+    assert imu.timestamp == t

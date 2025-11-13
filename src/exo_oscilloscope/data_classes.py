@@ -63,3 +63,4 @@ class IMUData:
     gyro: Vector3
     mag: Vector3
     quat: Quaternion
+    timestamp: float

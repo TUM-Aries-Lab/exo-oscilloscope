@@ -4,12 +4,9 @@ import pyqtgraph as pg
 from loguru import logger
 from PySide6 import QtCore, QtWidgets
 
-from exo_oscilloscope.config.definitions import PENS
+from exo_oscilloscope.config.definitions import APP_NAME, BUFFER_SIZE, PENS
 from exo_oscilloscope.data_classes import IMUData
 from exo_oscilloscope.panel import IMUPanel
-
-APP_NAME = "Exo-Oscilloscope"
-BUFFER_SIZE = 500
 
 
 class ExoPlotter:
