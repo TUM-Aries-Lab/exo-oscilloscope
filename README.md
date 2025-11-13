@@ -10,9 +10,7 @@ To install the library run:
 ```bash
 pip install exo-oscilloscope
 ```
-
 OR
-
 ```bash
 pip install git+https://github.com/TUM-Aries-Lab/exo-oscilloscope.git@<specific-tag>
 ```
@@ -41,13 +39,12 @@ The package can then be found at: https://pypi.org/project/exo-oscilloscope
 ```python
 """Basic docstring for my module."""
 
-from loguru import logger
-
-from exo_oscilloscope.config import definitions
+from exo_oscilloscope.plotter import ExoPlotter
 
 def main() -> None:
     """Run a simple demonstration."""
-    logger.info("Hello World!")
+    gui = ExoPlotter()
+    gui.run()
 
 if __name__ == "__main__":
     main()
