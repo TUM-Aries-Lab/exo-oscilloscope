@@ -6,6 +6,9 @@ from PySide6 import QtWidgets
 
 from exo_oscilloscope.config.definitions import BUFFER_SIZE, PENS
 
+AXES = ["x", "y", "z"]
+QUAT_AXES = ["x", "y", "z", "w"]
+
 
 def make_plot(title: str, y_label: str) -> pg.PlotWidget:
     """Make a plot with given title and Y-axis label."""
@@ -54,16 +57,20 @@ class IMUPanel:
 
         # Curves
         self.accel_curves = [
-            self.accel_plot.plot(pen=self.pens[i], name=f"accel_{i}") for i in range(3)
+            self.accel_plot.plot(pen=self.pens[i], name=f"accel_{ax}")
+            for i, ax in enumerate(AXES)
         ]
         self.gyro_curves = [
-            self.gyro_plot.plot(pen=self.pens[i], name=f"gyro_{i}") for i in range(3)
+            self.gyro_plot.plot(pen=self.pens[i], name=f"gyro_{ax}")
+            for i, ax in enumerate(AXES)
         ]
         self.mag_curves = [
-            self.mag_plot.plot(pen=self.pens[i], name=f"mag_{i}") for i in range(3)
+            self.mag_plot.plot(pen=self.pens[i], name=f"mag_{ax}")
+            for i, ax in enumerate(AXES)
         ]
         self.quat_curves = [
-            self.quat_plot.plot(pen=self.pens[i], name=f"quat_{i}") for i in range(4)
+            self.quat_plot.plot(pen=self.pens[i], name=f"quat_{ax}")
+            for i, ax in enumerate(QUAT_AXES)
         ]
 
     def update(self, imu) -> None:
