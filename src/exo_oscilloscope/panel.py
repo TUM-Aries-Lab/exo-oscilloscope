@@ -5,6 +5,7 @@ import pyqtgraph as pg
 from PySide6 import QtWidgets
 
 from exo_oscilloscope.config.definitions import BUFFER_SIZE, PENS
+from exo_oscilloscope.data_classes import IMUData
 
 AXES = ["x", "y", "z"]
 QUAT_AXES = ["x", "y", "z", "w"]
@@ -73,17 +74,15 @@ class IMUPanel:
             for i, ax in enumerate(QUAT_AXES)
         ]
 
-    def update(self, imu) -> None:
+    def update(self, imu: IMUData) -> None:
         """Update this panel with new IMUData.
 
         :param imu: IMUData to update
         :return: None
         """
-        t = imu.timestamp
-
         # --- shift time once ---
         self.time_buf[:-1] = self.time_buf[1:]
-        self.time_buf[-1] = t
+        self.time_buf[-1] = imu.timestamp
 
         # --- shift data once per group, but DO NOT shift time again --
         self.accel_buf[:, :-1] = self.accel_buf[:, 1:]
