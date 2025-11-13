@@ -10,13 +10,13 @@ Do ***NOT*** clone this repository. Please use it as a template instead. This re
 To install the library run:
 
 ```bash
-pip install <your-package-name>
+pip install exo-oscilloscope
 ```
 
 OR
 
 ```bash
-pip install git+https://github.com/TUM-Aries-Lab/<your-package-name>.git@<specific-tag>
+pip install git+https://github.com/TUM-Aries-Lab/exo-oscilloscope.git@<specific-tag>
 ```
 
 ## Development
@@ -24,7 +24,7 @@ pip install git+https://github.com/TUM-Aries-Lab/<your-package-name>.git@<specif
 1. Install [pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation)
 2. ```pyenv install <desired-python-version>  # install the required python version```
 3. ```pyenv global <desired-python-version>  # set the required python version```
-4. ```git clone git@github.com:TUM-Aries-Lab/template-python.git```
+4. ```git clone git@github.com:TUM-Aries-Lab/exo-oscilloscope.git```
 5. `make init` to create the virtual environment and install dependencies
 6. `make format` to format the code and check for errors
 7. `make test` to run the test suite
@@ -37,7 +37,7 @@ It's super easy to publish your own packages on PyPI. To build and publish this 
 poetry build
 poetry publish  # make sure your version in pyproject.toml is updated
 ```
-The package can then be found at: https://pypi.org/project/change-me
+The package can then be found at: https://pypi.org/project/exo-oscilloscope
 
 ## Module Usage
 ```python
@@ -45,7 +45,7 @@ The package can then be found at: https://pypi.org/project/change-me
 
 from loguru import logger
 
-from change_me import definitions
+from exo_oscilloscope.config import definitions
 
 def main() -> None:
     """Run a simple demonstration."""
@@ -57,5 +57,5 @@ if __name__ == "__main__":
 
 ## Program Usage
 ```bash
-poetry run python -m change_me
+poetry run python -m exo_oscilloscope
 ```

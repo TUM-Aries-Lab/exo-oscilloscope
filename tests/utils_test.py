@@ -3,8 +3,8 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from change_me.config.definitions import LogLevel
-from change_me.utils import setup_logger
+from exo_oscilloscope.config.definitions import LogLevel
+from exo_oscilloscope.utils import setup_logger
 
 
 def test_logger_init() -> None:
