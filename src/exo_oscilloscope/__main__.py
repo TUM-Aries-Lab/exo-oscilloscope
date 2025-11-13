@@ -35,7 +35,8 @@ def main(
             mag=Vector3(np.cos(t), np.cos(t * 2), np.cos(t * 4)),
             quat=Quaternion(0.0, 0.0, 0.0, np.sin(t * 8)),
         )
-        gui.plot_imu(imu)
+        gui.plot_left(imu)
+        gui.plot_right(imu)
 
     timer = gui.QtCore.QTimer()
     timer.timeout.connect(update)
