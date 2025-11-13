@@ -3,7 +3,7 @@ SHELL := /bin/bash
 init:
 	python3 -m venv .venv
 	poetry install --with dev
-	pre-commit install
+	poetry run pre-commit install
 	poetry env info
 	@echo "Created virtual environment"
 
@@ -31,8 +31,8 @@ update:
 	poetry update
 
 docker:
-	docker build --no-cache -f Dockerfile -t change_me-smoke .
-	docker run --rm change_me-smoke
+	docker build --no-cache -f Dockerfile -t exo_oscilloscope-smoke .
+	docker run --rm exo_oscilloscope-smoke
 
 app:
-	poetry run python -m change_me
+	poetry run python -m exo_oscilloscope

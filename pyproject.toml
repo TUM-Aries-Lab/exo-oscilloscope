@@ -1,15 +1,17 @@
 [tool.poetry]
-name = "change-me"
-version = "0.1.0"
-description = "A simple Python template"
-authors = ["Tsmorz <tonysmoragiewicz@gmail.com>"]
+name = "exo-oscilloscope"
+version = "0.0.1alpha"
+description = "A Python exo-oscilloscope"
+authors = ["Tsmorz <tony.smoragiewicz@tum.de>"]
 readme = "README.md"
-package-mode = false
+package-mode = true
 
 [tool.poetry.dependencies]
 python = "^3.11, <3.13"
 numpy = "^2.2.3"
 loguru = "^0.7.3"
+pyside6 = "^6.10.0"
+pyqtgraph = "^0.13.7"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.9"
@@ -72,7 +74,7 @@ fix = true
 
 # Sort imports automatically
 [tool.ruff.lint.isort]
-known-first-party = ["change-me"]  # Replace it with your project name
+known-first-party = ["exo-oscilloscope"]  # Replace it with your project name
 combine-as-imports = true
 
 # Enforce docstring styles
@@ -86,4 +88,4 @@ indent-style = "space"  # Use spaces instead of tabs
 line-ending = "lf"      # Use LF for line endings (Unix standard)
 
 [tool.poetry.urls]
-homepage = "https://github.com/TUM-Aries-Lab/template-python"
+homepage = "https://github.com/TUM-Aries-Lab/exo-oscilloscope"
