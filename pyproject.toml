@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "exo-oscilloscope"
-version = "0.0.1"
-description = "A Python exo-oscilloscope"
+version = "0.0.2"
+description = "A Python-based exosuit oscilloscope"
 authors = ["Tsmorz <tony.smoragiewicz@tum.de>"]
 readme = "README.md"
 package-mode = true
