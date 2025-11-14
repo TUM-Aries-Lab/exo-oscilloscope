@@ -37,13 +37,10 @@ jobs:
           installer-parallel: true
 
       - name: Install dependencies
-        run: |
-          poetry install --no-interaction --no-ansi --with dev
+        run: make init
 
       - name: Run Ruff
-        run: |
-          poetry run ruff format --check .
-          poetry run ruff check .
+        run: make lint
 
   # --------------------------------------------------------------------------
   # TYPE CHECK (Mypy)
@@ -70,13 +67,10 @@ jobs:
           installer-parallel: true
 
       - name: Install dependencies
-        run: |
-          poetry install --no-interaction --no-ansi --with dev
+        run: make init
 
       - name: Run Mypy
-        run: |
-          poetry run mypy --install-types --non-interactive || true
-          poetry run mypy src/ tests/ --ignore-missing-imports --disable-error-code=call-overload
+        run: make typecheck
 
   # --------------------------------------------------------------------------
   # TESTS (Pytest + Coverage)
@@ -123,6 +117,7 @@ jobs:
           installer-parallel: true
 
       - name: Install dependencies (with dev)
+        if: steps.cache.outputs.cache-hit != 'true'
         run: make init
 
       - name: Run Pytest
