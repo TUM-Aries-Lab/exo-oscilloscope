@@ -4,7 +4,12 @@ from typing import Callable
 
 import pyqtgraph as pg
 from loguru import logger
-from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import QTimer
+from PySide6.QtWidgets import (
+    QApplication,
+    QHBoxLayout,
+    QWidget,
+)
 
 from exo_oscilloscope.config.definitions import APP_NAME, BUFFER_SIZE
 from exo_oscilloscope.data_classes import IMUData
@@ -17,28 +22,30 @@ class ExoPlotter:
     def __init__(self, buffer_size: int = BUFFER_SIZE) -> None:
         logger.info("Starting the exosuit oscilloscope pipeline.")
 
-        self.QtWidgets = QtWidgets
-        self.QtCore = QtCore
         self.pg = pg
         self.name = APP_NAME
-        self._timer: QtCore.QTimer | None = None
-        self.app = self.QtWidgets.QApplication([])
-        self.window = self.QtWidgets.QWidget()
+        self._timer: QTimer | None = None
+
+        # Qt application + main window
+        self.app = QApplication([])
+        self.window = QWidget()
         self.window.setWindowTitle(self.name)
 
         # Main layout
-        self.main_layout = QtWidgets.QHBoxLayout()
+        self.main_layout = QHBoxLayout()
         self.window.setLayout(self.main_layout)
 
-        # Create IMU panels (no duplication!)
+        # Create IMU panels
         self.left_panel = IMUPanel(title_prefix="Left", buffer_size=buffer_size)
         self.right_panel = IMUPanel(title_prefix="Right", buffer_size=buffer_size)
 
-        # Add them to the layout
+        # Add panels to the layout
         self.main_layout.addLayout(self.left_panel.layout)
         self.main_layout.addLayout(self.right_panel.layout)
 
-    # Update functions forward to the panel
+    # ------------------------------------------------------------------
+    # Plotting helpers
+    # ------------------------------------------------------------------
     def plot_left(self, imu: IMUData) -> None:
         """Plot left IMU data."""
         self.left_panel.update(imu)
@@ -47,6 +54,9 @@ class ExoPlotter:
         """Plot right IMU data."""
         self.right_panel.update(imu)
 
+    # ------------------------------------------------------------------
+    # Run / Close
+    # ------------------------------------------------------------------
     def run(
         self,
         update_callback: Callable[[], None] | None = None,
@@ -54,16 +64,16 @@ class ExoPlotter:
     ) -> None:
         """Run the GUI event loop.
 
-        :param update_callback: Callback function that will be called repeatedly
-        :param delay_millisec: Delay time in milliseconds between calls.
+        :param update_callback: Repeated callback for simulation or live data.
+        :param delay_millisec: Delay between timer callbacks.
         """
         self.window.show()
 
         if update_callback is not None:
-            timer = self.QtCore.QTimer()
+            timer = QTimer()
             timer.timeout.connect(update_callback)
             timer.start(delay_millisec)
-            self._timer = timer  # Keep a reference to prevent GC
+            self._timer = timer  # Keep reference so it does not get GC'd
 
         self.app.exec()
 
