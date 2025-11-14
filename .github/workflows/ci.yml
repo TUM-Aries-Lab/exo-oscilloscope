@@ -122,28 +122,11 @@ jobs:
           virtualenvs-in-project: true
           installer-parallel: true
 
-      - name: Cache virtualenv
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: .venv
-          key: v1-poetry-${{ runner.os }}-py${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
-
       - name: Install dependencies (with dev)
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          poetry env use "${{ steps.py.outputs.python-path }}"
-          poetry install --no-interaction --no-ansi --with dev
-
-      - name: Sync dependencies (cache hit)
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: |
-          poetry env use "${{ steps.py.outputs.python-path }}"
-          poetry install --no-interaction --no-ansi --with dev
+        run: make init
 
       - name: Run Pytest
-        run: |
-          poetry run pytest -q --cov=change_me --cov-report=term-missing --cov-report=xml --cov-fail-under=85
+        run: make test
 
       - name: Upload coverage XML artifact
         if: ${{ matrix.python-version == '3.12' }}
