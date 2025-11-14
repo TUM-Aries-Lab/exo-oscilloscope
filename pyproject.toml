@@ -10,8 +10,9 @@ package-mode = true
 python = "^3.11, <3.14"
 numpy = "^2.2.3"
 loguru = "^0.7.3"
-pyside6 = "^6.10.0"
 pyqtgraph = "^0.13.7"
+PyQt5 = "*"
+pyside6 = "^6.10.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.9"

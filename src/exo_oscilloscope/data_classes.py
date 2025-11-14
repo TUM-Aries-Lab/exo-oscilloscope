@@ -5,23 +5,31 @@ from dataclasses import dataclass
 
 @dataclass
 class Vector3:
-    """Represent a 3D vector.
-
-    :param x: X component.
-    :param y: Y component.
-    :param z: Z component.
-    """
+    """Represent a 3D vector."""
 
     x: float
     y: float
     z: float
 
     def to_tuple(self) -> tuple[float, float, float]:
-        """Return the vector as a (x, y, z) tuple.
-
-        :return: Tuple of floats representing the vector.
-        """
+        """Return the vector as a (x, y, z) tuple."""
         return self.x, self.y, self.z
+
+    def __mul__(self, other: float | int) -> "Vector3":
+        """Scalar multiplication: v * scalar.
+
+        :param other: Scalar multiplication.
+        :return: Vector3.
+        """
+        return Vector3(self.x * other, self.y * other, self.z * other)
+
+    def __rmul__(self, other: float | int) -> "Vector3":
+        """Scalar multiplication: scalar * v.
+
+        :param other: Scalar multiplication.
+        :return: Vector3.
+        """
+        return self.__mul__(other)
 
 
 @dataclass
