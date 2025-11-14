@@ -27,12 +27,12 @@ def make_plot(title: str, y_label: str) -> pg.PlotWidget:
 class IMUPanel:
     """UI container + buffers + curves for a single IMU."""
 
-    def __init__(self, title_prefix: str) -> None:
+    def __init__(self, title_prefix: str, buffer_size: int = BUFFER_SIZE) -> None:
         """Initialize the panel.
 
         :param title_prefix: prefix for title
         """
-        self.buffer_size = BUFFER_SIZE
+        self.buffer_size = buffer_size
         self.pens = PENS
 
         # Buffers
