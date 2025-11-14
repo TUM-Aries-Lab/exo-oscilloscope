@@ -12,12 +12,10 @@ os.environ["QT_QPA_PLATFORM"] = "offscreen"
 
 def test_plotter() -> None:
     """Test the plotter by auto-closing the GUI after starting."""
+    # Arrange
+    close_millisec = 50
+
+    # Act
     gui = ExoPlotter()
-
-    # Auto-close the app after 50 ms
-    QTimer.singleShot(50, gui.close)
-
-    # No update_callback → run once, event loop exits automatically
+    QTimer.singleShot(close_millisec, gui.close)
     gui.run(update_callback=None)
-
-    # If we reach here, test passed (no hangs, no errors)
