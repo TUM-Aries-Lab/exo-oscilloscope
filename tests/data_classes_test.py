@@ -17,6 +17,19 @@ def test_vector3() -> None:
     assert accel_tuple == (0, 0, 0)
 
 
+def test_vector3_multi() -> None:
+    """Test Vector3 multiplication."""
+    # Arrange
+    accel = Vector3(0, 0, 0)
+
+    # Act
+    left = 3 * accel
+    right = accel * 3
+
+    # Assert
+    assert left == right
+
+
 @pytest.mark.parametrize("scalar_first", [True, False])
 def test_quaternion(scalar_first: bool) -> None:
     """Test Quaternion initialization."""
