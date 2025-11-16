@@ -5,11 +5,7 @@ from typing import Callable
 import pyqtgraph as pg
 from loguru import logger
 from PySide6.QtCore import QTimer
-from PySide6.QtWidgets import (
-    QApplication,
-    QHBoxLayout,
-    QWidget,
-)
+from PySide6.QtWidgets import QApplication, QHBoxLayout, QWidget
 
 from exo_oscilloscope.config.definitions import APP_NAME, BUFFER_SIZE
 from exo_oscilloscope.data_classes import IMUData
@@ -43,9 +39,6 @@ class ExoPlotter:
         self.main_layout.addLayout(self.left_panel.layout)
         self.main_layout.addLayout(self.right_panel.layout)
 
-    # ------------------------------------------------------------------
-    # Plotting helpers
-    # ------------------------------------------------------------------
     def plot_left(self, imu: IMUData) -> None:
         """Plot left IMU data."""
         self.left_panel.update(imu)
@@ -54,26 +47,23 @@ class ExoPlotter:
         """Plot right IMU data."""
         self.right_panel.update(imu)
 
-    # ------------------------------------------------------------------
-    # Run / Close
-    # ------------------------------------------------------------------
     def run(
         self,
         update_callback: Callable[[], None] | None = None,
-        delay_millisec: int = 5,
+        delay_millisecond: int = 5,
     ) -> None:
         """Run the GUI event loop.
 
         :param update_callback: Repeated callback for simulation or live data.
-        :param delay_millisec: Delay between timer callbacks.
+        :param delay_millisecond: Delay between timer callbacks.
         """
         self.window.show()
 
         if update_callback is not None:
             timer = QTimer()
             timer.timeout.connect(update_callback)
-            timer.start(delay_millisec)
-            self._timer = timer  # Keep reference so it does not get GC'd
+            timer.start(delay_millisecond)
+            self._timer = timer  # Keep reference so it does not get garbage collected
 
         self.app.exec()
 
