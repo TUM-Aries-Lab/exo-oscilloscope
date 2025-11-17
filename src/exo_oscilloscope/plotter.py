@@ -48,12 +48,12 @@ class ExoPlotter:
         logger.debug("Initialize the plot panels.")
 
         # Left side stack
-        self.left_column.addLayout(self.left_imu.layout)
-        self.left_column.addLayout(self.left_motor.layout)
+        self.left_column.addLayout(self.left_imu.layout, stretch=4)
+        self.left_column.addLayout(self.left_motor.layout, stretch=1)
 
         # Right side stack
-        self.right_column.addLayout(self.right_imu.layout)
-        self.right_column.addLayout(self.right_motor.layout)
+        self.right_column.addLayout(self.right_imu.layout, stretch=4)
+        self.right_column.addLayout(self.right_motor.layout, stretch=1)
 
         # Add columns to main horizontal layout
         self.main_layout.addLayout(self.left_column)
