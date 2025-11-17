@@ -59,12 +59,17 @@ class ExoPlotter:
         self.main_layout.addLayout(self.left_column)
         self.main_layout.addLayout(self.right_column)
 
-    def plot_left(self, imu: IMUData, motor: MotorData) -> None:
+    def update_plots(self, imus: list[IMUData], motors: list[MotorData]) -> None:
+        """Update the plots."""
+        self.update_left(imus[0], motors[0])
+        self.update_right(imus[1], motors[1])
+
+    def update_left(self, imu: IMUData, motor: MotorData) -> None:
         """Plot left IMU and motor data."""
         self.left_imu.update(imu)
         self.left_motor.update(motor)
 
-    def plot_right(self, imu: IMUData, motor: MotorData) -> None:
+    def update_right(self, imu: IMUData, motor: MotorData) -> None:
         """Plot right IMU and motor data."""
         self.right_imu.update(imu)
         self.right_motor.update(motor)

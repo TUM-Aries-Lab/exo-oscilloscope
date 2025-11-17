@@ -6,11 +6,12 @@ import numpy as np
 from loguru import logger
 
 from exo_oscilloscope.data_classes import IMUData, MotorData, Quaternion, Vector3
+from exo_oscilloscope.plotter import ExoPlotter
 
 GRAVITY = 9.81
 
 
-def make_simulated_update(gui, start_time: float):  # pragma: no cover
+def make_simulated_update(gui: ExoPlotter, start_time: float):  # pragma: no cover
     """Return an update callback that generates fake IMU data.
 
     :param gui: The ExoPlotter instance receiving plot updates.
@@ -34,7 +35,6 @@ def make_simulated_update(gui, start_time: float):  # pragma: no cover
             torque=np.sin(t + 0.5),
             timestamp=t,
         )
-        gui.plot_left(imu, motor)
-        gui.plot_right(imu, motor)
+        gui.update_plots(imus=[imu, imu], motors=[motor, motor])
 
     return update
