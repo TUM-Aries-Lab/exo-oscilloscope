@@ -44,14 +44,21 @@ DEFAULT_LOG_LEVEL = LogLevel.info
 DEFAULT_LOG_FILENAME = "log_file"
 
 PENS = [
-    pg.mkPen("#1f77b4", width=2),  # blue
-    pg.mkPen("#ff7f0e", width=2),  # orange
-    pg.mkPen("#2ca02c", width=2),  # green
-    pg.mkPen("#d62728", width=2),  # red
-    pg.mkPen("#9467bd", width=2),  # purple
-    pg.mkPen("#8c564b", width=2),  # brown
-    pg.mkPen("#e377c2", width=2),  # pink
-    pg.mkPen("#7f7f7f", width=2),  # gray
+    pg.mkPen("#000000", width=2),  # blue
+    pg.mkPen("#E69F00", width=2),  # orange
+    pg.mkPen("#56B4E9", width=2),  # green
+    pg.mkPen("#009E73", width=2),  # red
+    pg.mkPen("#F0E442", width=2),  # purple
+    pg.mkPen("#0072B2", width=2),  # brown
+    pg.mkPen("#D55E00", width=2),  # pink
+    pg.mkPen("#CC79A7", width=2),  # gray
 ]
+
+IMU_COLORS = PENS[0:4]
+MOTOR_COLORS = PENS[4:7]
+
 APP_NAME = "Exo-Oscilloscope"
 BUFFER_SIZE = 200
+
+AXES = ["x", "y", "z"]
+QUAT_AXES = ["x", "y", "z", "w"]

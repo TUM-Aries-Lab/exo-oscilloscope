@@ -61,7 +61,17 @@ class Quaternion:
 
 
 @dataclass
-class IMUData:
+class BaseData:
+    """Represent a single data measurement.
+
+    :param timestamp: timestamp in seconds.
+    """
+
+    timestamp: float
+
+
+@dataclass
+class IMUData(BaseData):
     """Represent a single IMU measurement including accel, gyro, mag, and quaternion.
 
     :param accel: Accelerometer measurement vector in m/s².
@@ -74,4 +84,28 @@ class IMUData:
     gyro: Vector3
     mag: Vector3
     quat: Quaternion
-    timestamp: float
+
+
+@dataclass
+class MotorData(BaseData):
+    """Represent a single motor state.
+
+    :param torque: Torque measurement vector in m/s.
+    :param speed: Motor speed measurement vector in m/s.
+    :param position: Motor position measurement vector in m/s.
+    """
+
+    torque: float
+    speed: float
+    position: float
+
+
+@dataclass
+class PlotConfig:
+    """Configuration for a single pyqtgraph plot."""
+
+    title_prefix: str
+    y_label: str
+    signals: list[str]
+    pens: list
+    buffer_size: int

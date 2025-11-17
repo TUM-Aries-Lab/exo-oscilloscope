@@ -31,4 +31,4 @@ docker:
 	docker run --rm exo_oscilloscope-smoke
 
 app:
-	poetry run python -m exo_oscilloscope
+	poetry run python -m exo_oscilloscope --stderr-level DEBUG --log-level DEBUG
