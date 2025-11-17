@@ -29,7 +29,10 @@ def make_simulated_update(gui, start_time: float):  # pragma: no cover
             timestamp=t,
         )
         motor = MotorData(
-            position=np.sin(t), speed=np.sin(t), torque=np.sin(t), timestamp=t
+            position=np.sin(t),
+            speed=np.sin(t + 0.25),
+            torque=np.sin(t + 0.5),
+            timestamp=t,
         )
         gui.plot_left(imu, motor)
         gui.plot_right(imu, motor)
