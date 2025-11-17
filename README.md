@@ -37,17 +37,18 @@ The package can then be found at: https://pypi.org/project/exo-oscilloscope
 
 ## Module Usage
 ```python
-"""Basic docstring for my module."""
+"""Example for how to run the module."""
+
+import time
 
 from exo_oscilloscope.plotter import ExoPlotter
+from exo_oscilloscope.sim_update import make_simulated_update
 
-def main() -> None:
-    """Run a simple demonstration."""
-    gui = ExoPlotter()
-    gui.run()
-
-if __name__ == "__main__":
-    main()
+gui = ExoPlotter()
+start_time = time.time()
+update_callback = make_simulated_update(gui=gui, start_time=start_time)
+gui.run(update_callback=update_callback)
+gui.close()
 ```
 
 ## Program Usage
