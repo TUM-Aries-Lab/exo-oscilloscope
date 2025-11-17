@@ -7,15 +7,15 @@ from loguru import logger
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import QApplication, QHBoxLayout, QWidget
 
-from exo_oscilloscope.config.definitions import APP_NAME, BUFFER_SIZE
+from exo_oscilloscope.config.definitions import APP_NAME
 from exo_oscilloscope.data_classes import IMUData
-from exo_oscilloscope.panel import IMUPanel
+from exo_oscilloscope.panels import IMUPanel
 
 
 class ExoPlotter:
     """Main application class for the exoskeleton plotting UI."""
 
-    def __init__(self, buffer_size: int = BUFFER_SIZE) -> None:
+    def __init__(self) -> None:
         logger.info("Starting the exosuit oscilloscope pipeline.")
 
         self.pg = pg
@@ -32,8 +32,8 @@ class ExoPlotter:
         self.window.setLayout(self.main_layout)
 
         # Create IMU panels
-        self.left_panel = IMUPanel(title_prefix="Left", buffer_size=buffer_size)
-        self.right_panel = IMUPanel(title_prefix="Right", buffer_size=buffer_size)
+        self.left_panel = IMUPanel(title_prefix="Left")
+        self.right_panel = IMUPanel(title_prefix="Right")
 
         # Add panels to the layout
         self.main_layout.addLayout(self.left_panel.layout)

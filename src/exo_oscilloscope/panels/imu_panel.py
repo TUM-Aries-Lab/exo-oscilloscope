@@ -4,7 +4,7 @@ import numpy as np
 import pyqtgraph as pg
 from PySide6 import QtWidgets
 
-from exo_oscilloscope.config.definitions import BUFFER_SIZE, PENS
+from exo_oscilloscope.config.definitions import BUFFER_SIZE, IMU_COLORS
 from exo_oscilloscope.data_classes import IMUData
 
 AXES = ["x", "y", "z"]
@@ -27,13 +27,13 @@ def make_plot(title: str, y_label: str) -> pg.PlotWidget:
 class IMUPanel:
     """UI container + buffers + curves for a single IMU."""
 
-    def __init__(self, title_prefix: str, buffer_size: int = BUFFER_SIZE) -> None:
+    def __init__(self, title_prefix: str) -> None:
         """Initialize the panel.
 
         :param title_prefix: prefix for title
         """
-        self.buffer_size = buffer_size
-        self.pens = PENS
+        self.buffer_size = BUFFER_SIZE
+        self.pens = IMU_COLORS
 
         # Buffers
         self.accel_buf = np.zeros((3, self.buffer_size))

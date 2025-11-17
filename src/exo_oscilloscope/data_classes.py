@@ -75,3 +75,30 @@ class IMUData:
     mag: Vector3
     quat: Quaternion
     timestamp: float
+
+
+@dataclass
+class MotorState:
+    """Represent a single motor state.
+
+    :param torque: Torque measurement vector in m/s.
+    :param speed: Motor speed measurement vector in m/s.
+    :param position: Motor position measurement vector in m/s.
+    :param timestamp: Motor timestamp measurement vector in ms.
+    """
+
+    torque: float
+    speed: float
+    position: float
+    timestamp: float
+
+
+@dataclass
+class PlotConfig:
+    """Configuration for a single pyqtgraph plot."""
+
+    title_prefix: str
+    y_label: str
+    signals: list[str]
+    pens: list
+    buffer_size: int

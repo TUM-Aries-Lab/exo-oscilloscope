@@ -43,6 +43,13 @@ class LogLevel:
 DEFAULT_LOG_LEVEL = LogLevel.info
 DEFAULT_LOG_FILENAME = "log_file"
 
+IMU_COLORS = [
+    pg.mkPen("#1f77b4", width=2),  # blue
+    pg.mkPen("#ff7f0e", width=2),  # orange
+    pg.mkPen("#2ca02c", width=2),  # green
+    pg.mkPen("#d62728", width=2),  # red
+]
+
 PENS = [
     pg.mkPen("#1f77b4", width=2),  # blue
     pg.mkPen("#ff7f0e", width=2),  # orange
