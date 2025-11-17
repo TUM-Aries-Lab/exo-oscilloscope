@@ -1,6 +1,6 @@
-# template-python
-[![Coverage Status](https://coveralls.io/repos/github/TUM-Aries-Lab/template-python/badge.svg?branch=main)](https://coveralls.io/github/TUM-Aries-Lab/template-python?branch=main)
-![Docker Image CI](https://github.com/TUM-Aries-Lab/template-python/actions/workflows/ci.yml/badge.svg)
+# Exosuit Oscilloscope
+[![Coverage Status](https://coveralls.io/repos/github/TUM-Aries-Lab/exo-oscilloscope/badge.svg?branch=main)](https://coveralls.io/github/TUM-Aries-Lab/exo-oscilloscope?branch=main)
+![Docker Image CI](https://github.com/TUM-Aries-Lab/exo-oscilloscope/actions/workflows/ci.yml/badge.svg)
 
 A data visualizer to help view the exosuit data streams.
 
