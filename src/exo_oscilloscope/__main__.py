@@ -3,6 +3,8 @@
 import argparse
 import time
 
+from loguru import logger
+
 from exo_oscilloscope.config.definitions import DEFAULT_LOG_LEVEL, LogLevel
 from exo_oscilloscope.plotter import ExoPlotter
 from exo_oscilloscope.sim_update import make_simulated_update
@@ -19,11 +21,17 @@ def main(
     :return: None
     """
     setup_logger(log_level=log_level, stderr_level=stderr_level)
-    start_time = time.time()
+
     gui = ExoPlotter()
-    update_callback = make_simulated_update(gui=gui, start_time=start_time)
-    gui.run(update_callback=update_callback)
-    gui.close()
+
+    try:
+        start_time = time.time()
+        update_callback = make_simulated_update(gui=gui, start_time=start_time)
+        gui.run(update_callback=update_callback)
+    except Exception as err:
+        logger.error(f"{err}.")
+    finally:
+        gui.close()
 
 
 if __name__ == "__main__":  # pragma: no cover
@@ -46,4 +54,4 @@ if __name__ == "__main__":  # pragma: no cover
     )
     args = parser.parse_args()
 
-    main(log_level=args.log_level)
+    main(log_level=args.log_level, stderr_level=args.stderr_level)
